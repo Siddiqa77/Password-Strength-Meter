@@ -38,13 +38,13 @@ def check_password_strength(password):
     else:
         feedback.append("🔴 Use at least one special character (!@#$%^&*).")
     
-    # Strength label
+    # Strength label and scoring system
     if strength <= 2:
-        return "Weak", feedback
+        return "Weak", strength, feedback
     elif strength == 3 or strength == 4:
-        return "Moderate", feedback
+        return "Moderate", strength, feedback
     else:
-        return "Strong", feedback
+        return "Strong", strength, feedback
 
 # Streamlit UI with enhanced styling
 st.set_page_config(page_title="Password Strength Meter", page_icon="🔒", layout="centered")
@@ -82,19 +82,20 @@ login_button = st.button("🚀 Login Securely", use_container_width=True)
 
 if login_button:
     if username and password:
-        strength, feedback = check_password_strength(password)
+        strength_label, score, feedback = check_password_strength(password)
         
-        if strength == "Weak":
-            st.error(f"❌ Password Strength: {strength}")
-        elif strength == "Moderate":
-            st.warning(f"⚠️ Password Strength: {strength}")
-        else:
-            st.success(f"✅ Welcome, {username}! Your password is strong.")
-        
-        if feedback:
+        if strength_label == "Weak":
+            st.error(f"❌ Password Strength: {strength_label} (Score: {score})")
             st.markdown("**🛡️ Suggestions to improve your password:**")
             for tip in feedback:
                 st.markdown(f"- {tip}")
+        elif strength_label == "Moderate":
+            st.warning(f"⚠️ Password Strength: {strength_label} (Score: {score})")
+            st.markdown("**🛡️ Suggestions to improve your password:**")
+            for tip in feedback:
+                st.markdown(f"- {tip}")
+        else:
+            st.success(f"✅ Welcome, {username}! Your password is strong. (Score: {score})")
     else:
         st.warning("⚠️ Please enter both username and password.")
 
