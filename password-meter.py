@@ -5,7 +5,7 @@ def check_password_strength(password):
     strength = 0
     feedback = []
     
-    # Criteria checks
+    # Condition checks
     length = len(password) >= 8
     has_upper = bool(re.search(r"[A-Z]", password))
     has_lower = bool(re.search(r"[a-z]", password))
@@ -55,14 +55,7 @@ st.markdown(
             background-color: #f0f2f6;
             font-family: Arial, sans-serif;
         }
-        .container {
-            max-width: 400px;
-            padding: 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
+       
         .stTextInput, .stButton {
             width: 100%;
         }
@@ -71,7 +64,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.markdown("<div class='container'>", unsafe_allow_html=True)
 st.markdown("<h2 style='text-align: center;'>🔐 Password Strength Meter</h2>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Enter your credentials to continue.</p>", unsafe_allow_html=True)
 
